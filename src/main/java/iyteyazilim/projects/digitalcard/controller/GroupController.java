@@ -1,4 +1,4 @@
 package iyteyazilim.projects.digitalcard.controller;
 
-public class deleteMe {
+public class GroupController {
 }
