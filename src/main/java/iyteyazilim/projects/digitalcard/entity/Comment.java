@@ -1,6 +1,6 @@
 package iyteyazilim.projects.digitalcard.entity;
 
-import iyteyazilim.projects.digitalcard.dto.RatedMaleDto;
+import iyteyazilim.projects.digitalcard.dto.RatedMealDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="comment")
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String text;
@@ -24,7 +25,7 @@ public class Comment {
     private double rate;
 
     @ElementCollection
-    private List<RatedMaleDto> singularRates;
+    private List<RatedMealDto> singularRates;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
