@@ -1,12 +1,11 @@
 package iyteyazilim.projects.digitalcard.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,4 +39,8 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Comment> comments = new ArrayList<Comment>();
+
+    public User(String email) {
+        this.email = email;
+    }
 }

@@ -22,11 +22,15 @@ public class Community {
     private String logo;
     private String coverImage;
     private String email;
-    private String password;
 
     @ManyToMany
     private List<User> followers = new ArrayList<User>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
     private List<Event> events = new ArrayList<Event>();
+
+    // Custom constructor for first login
+    public Community(String email) {
+        this.email = email;
+    }
 }
