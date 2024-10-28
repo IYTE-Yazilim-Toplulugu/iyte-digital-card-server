@@ -1,9 +1,13 @@
 package iyteyazilim.projects.digitalcard.service.impl;
 
-import iyteyazilim.projects.digitalcard.dto.CommunityLoginDto;
+import iyteyazilim.projects.digitalcard.dto.CommunityDto;
+import iyteyazilim.projects.digitalcard.entity.Comment;
 import iyteyazilim.projects.digitalcard.entity.Community;
+import iyteyazilim.projects.digitalcard.entity.Event;
+import iyteyazilim.projects.digitalcard.exception.ResourceNotFoundException;
 import iyteyazilim.projects.digitalcard.repository.ICommunityRepository;
 import iyteyazilim.projects.digitalcard.service.ICommunityService;
+import iyteyazilim.projects.digitalcard.mapper.CommunityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,45 +20,46 @@ public class CommunityService implements ICommunityService {
     private ICommunityRepository communityRepository;
 
     @Override
-    public void addCommunity(Community community) {
-        communityRepository.save(community);
-    }
-
-    @Override
-    public List<Community> getCommunity() {
-        return communityRepository.findAll();
+    public CommunityDto addCommunity(Community community) {
+        Community savedCommunity = communityRepository.save(community);
+        return CommunityMapper.mapToCommmunityDto(savedCommunity);
     }
 
     @Override
     public Community getCommunity(Long id) {
-        return communityRepository.findById(id).orElse(null);
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Community doesn't exist with given id : " + id));
+        return community;
     }
 
     @Override
-    public void updateCommunity(Long id, Community community) {
-        Community existingCommunity = communityRepository.findById(id).orElse(null);
-        if (existingCommunity != null) {
-            existingCommunity.setName(community.getName());
-            existingCommunity.setEmail(community.getEmail());
-            communityRepository.save(existingCommunity);
-        }
+    public List<Community> getCommunities() {
+        List<Community> communities = communityRepository.findAll();
+        return communities;
+    }
+
+    @Override
+    public CommunityDto updateCommunity(Long id, Community updatedCommunity) {
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Community doesn't exist with given id : " + id));
+
+        Community updatedCommunityObj = new Community(community, updatedCommunity);
+        updatedCommunityObj = communityRepository.save(updatedCommunityObj);
+        return CommunityMapper.mapToCommmunityDto(updatedCommunityObj);
     }
 
     @Override
     public void deleteCommunity(Long id) {
-        communityRepository.deleteById(id);
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Community doesn't exist with given id : " + id));
+        communityRepository.delete(community);
     }
 
     @Override
-    public boolean isCommunityExist(String email) {
-        Optional<Community> community = communityRepository.findByEmail(email);
-        return community.isPresent();
-    }
-    @Override
-    public boolean validateWithIyte(CommunityLoginDto communityLoginDto) {
-        // İYTE'ye doğrulama isteği göndermek için gerekli kodu buraya ekleyin.
-        // Örnek olarak basit bir kontrol:
-        return "iyte.edu.tr".equals(communityLoginDto.getEmail().split("@")[1]);
+    public List<Event> getEventsOfCommunity(Long id) {
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Community doesn't exist with given id : " + id));
+        return community.getEvents();
     }
 
 }
