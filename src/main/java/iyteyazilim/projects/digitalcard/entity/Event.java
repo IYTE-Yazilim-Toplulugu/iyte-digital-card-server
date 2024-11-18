@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="event")
 @Data
@@ -24,6 +26,8 @@ public class Event {
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false)
+    @JsonBackReference
     private Community community;
 
     @ElementCollection
@@ -32,4 +36,13 @@ public class Event {
     @ElementCollection
     private List<UserDto> notInterestedUsers = new ArrayList<UserDto>();
 
+    public Event(Event original, Event updated) {
+        this.id = original.getId();  // Keeping the original ID
+        this.name = updated.getName() != null ? updated.getName() : original.getName();
+        this.image = updated.getImage() != null ? updated.getImage() : original.getImage();
+        this.description = updated.getDescription() != null ? updated.getDescription() : original.getDescription();
+        this.community = updated.getCommunity() != null ? updated.getCommunity() : original.getCommunity();
+        this.interestedUsers = updated.getInterestedUsers() != null ? updated.getInterestedUsers() : original.getInterestedUsers();
+        this.notInterestedUsers = updated.getNotInterestedUsers() != null ? updated.getNotInterestedUsers() : original.getNotInterestedUsers();
+    }
 }

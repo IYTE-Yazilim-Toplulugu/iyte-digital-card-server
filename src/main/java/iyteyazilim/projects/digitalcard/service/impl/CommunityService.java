@@ -1,12 +1,10 @@
 package iyteyazilim.projects.digitalcard.service.impl;
 
 import iyteyazilim.projects.digitalcard.dto.CommunityDto;
-import iyteyazilim.projects.digitalcard.entity.Comment;
 import iyteyazilim.projects.digitalcard.entity.Community;
 import iyteyazilim.projects.digitalcard.entity.Event;
 import iyteyazilim.projects.digitalcard.exception.ResourceNotFoundException;
 import iyteyazilim.projects.digitalcard.repository.ICommunityRepository;
-import iyteyazilim.projects.digitalcard.service.ICommentService;
 import iyteyazilim.projects.digitalcard.service.ICommunityService;
 import iyteyazilim.projects.digitalcard.mapper.CommunityMapper;
 import org.springframework.beans.factory.annotation.Autowired;

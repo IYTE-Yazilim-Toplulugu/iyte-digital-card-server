@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="community")
 @Data
@@ -28,7 +30,9 @@ public class Community {
     private List<User> followers = new ArrayList<User>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
+    @JsonManagedReference
     private List<Event> events = new ArrayList<Event>();
+    
     public Community(Community original, Community updated) {
         this.id = original.getId();  // Keeping the original ID
         this.name = updated.getName() != null ? updated.getName() : original.getName();

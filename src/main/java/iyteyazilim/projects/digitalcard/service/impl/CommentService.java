@@ -3,7 +3,6 @@ package iyteyazilim.projects.digitalcard.service.impl;
 import iyteyazilim.projects.digitalcard.entity.Comment;
 import iyteyazilim.projects.digitalcard.entity.User;
 import iyteyazilim.projects.digitalcard.exception.ResourceNotFoundException;
-import iyteyazilim.projects.digitalcard.exception.ValidationException;
 import iyteyazilim.projects.digitalcard.repository.ICommentRepository;
 import iyteyazilim.projects.digitalcard.repository.IUserRepository;
 import iyteyazilim.projects.digitalcard.service.ICommentService;
@@ -27,12 +26,10 @@ public class CommentService implements ICommentService {
         //if (comment.getUser() == null || comment.getUser().getId() == null) {
         //    throw new ValidationException("A valid User must be provided for the comment.");
         //}
+        User user = userRepository.findById(comment.getUser().getId())
+               .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + comment.getUser().getId()));
 
-        // Fetch the user from the database
-        //User user = userRepository.findById(comment.getUser().getId())
-        //        .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + comment.getUser().getId()));
-
-        //comment.setUser(user);
+        comment.setUser(user);
         return commentRepository.save(comment);
     }
 

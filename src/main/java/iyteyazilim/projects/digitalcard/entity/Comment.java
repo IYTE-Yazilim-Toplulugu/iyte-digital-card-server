@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name="comment")
@@ -28,5 +27,6 @@ public class Comment {
     private List<RatedMealDto> singularRates;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false)
     private User user;
 }

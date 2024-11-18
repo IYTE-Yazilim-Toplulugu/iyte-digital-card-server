@@ -22,4 +22,14 @@ public class Announcement {
     private String url;
     private boolean isActive;
     private Date createdAt;
+
+    public Announcement(Announcement original, Announcement updatedAnnouncement) {
+        this.id = original.getId();  // Keeping the original ID
+        this.name = updatedAnnouncement.getName() != null ? updatedAnnouncement.getName() : original.getName();
+        this.image = updatedAnnouncement.getImage() != null ? updatedAnnouncement.getImage() : original.getImage();
+        this.orderNumber = updatedAnnouncement.getOrderNumber() != null ? updatedAnnouncement.getOrderNumber() : original.getOrderNumber();
+        this.url = updatedAnnouncement.getUrl() != null ? updatedAnnouncement.getUrl() : original.getUrl();
+        this.isActive = updatedAnnouncement.isActive();
+        this.createdAt = updatedAnnouncement.getCreatedAt() != null ? updatedAnnouncement.getCreatedAt() : original.getCreatedAt();
+    }
 }

@@ -5,9 +5,9 @@ import iyteyazilim.projects.digitalcard.entity.Announcement;
 import java.util.List;
 
 public interface IAnnouncementService {
-    public void addAnnouncement(Announcement announcement);
+    public Announcement addAnnouncement(Announcement announcement);
     public List<Announcement> getAnnouncements();
-    public Announcement getAnnouncement(Integer id);
-    public void updateAnnouncement(Integer id, Announcement announcement);
-    public void deleteAnnouncement(Integer id);
+    public Announcement getAnnouncement(Long id);
+    public Announcement updateAnnouncement(Long id, Announcement announcement);
+    public void deleteAnnouncement(Long id);
 }
