@@ -5,9 +5,9 @@ import iyteyazilim.projects.digitalcard.entity.Comment;
 import java.util.List;
 
 public interface ICommentService {
-    public void addComment(Comment comment);
-    public List<Comment> getComment();
-    public Comment getComment(Integer id);
-    public void updateComment(Integer id, Comment comment);
-    public void deleteComment(Integer id);
+    public Comment addComment(Comment comment);
+    public List<Comment> getComments();
+    public Comment getComment(Long id);
+    public Comment updateComment(Long id, Comment comment);
+    public void deleteComment(Long id);
 }

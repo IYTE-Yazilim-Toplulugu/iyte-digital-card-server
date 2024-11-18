@@ -1,7 +1,6 @@
 package iyteyazilim.projects.digitalcard.service.impl;
 
 import iyteyazilim.projects.digitalcard.dto.CommunityDto;
-import iyteyazilim.projects.digitalcard.entity.Comment;
 import iyteyazilim.projects.digitalcard.entity.Community;
 import iyteyazilim.projects.digitalcard.entity.Event;
 import iyteyazilim.projects.digitalcard.exception.ResourceNotFoundException;
