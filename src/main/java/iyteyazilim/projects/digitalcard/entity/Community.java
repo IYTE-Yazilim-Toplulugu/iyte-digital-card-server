@@ -24,7 +24,6 @@ public class Community {
     private String logo;
     private String coverImage;
     private String email;
-    private String password;
 
     @ManyToMany
     private List<User> followers = new ArrayList<User>();
